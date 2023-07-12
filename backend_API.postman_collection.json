@@ -1,0 +1,1518 @@
+{
+	"info": {
+		"_postman_id": "a26e3c30-0121-4c2e-b026-bc399bcfe604",
+		"name": "Portfolio backend API",
+		"description": "Postman collection to portfolio backend API.\n\nShows all endpoints and input data examples.\n\n[https://github.com/LautaroColella/YP_PortfolioBackend](https://github.com/LautaroColella/YP_PortfolioBackend/tree/production)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25347051"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "/api/v1/login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"example@gmail.com\",\n    \"password\": \"mySecretPassword123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						},
+						"description": "No authorization is required.\n\nBody specifications:\n\n``` json\n{\n    \"email\": string (> 3, < 255),\n    \"password\": string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to authenticate.\n\n- **Success response body:** A bearer token to use as authorization mechanism\n- **Success response status**: `200 OK`\n- **Error response status:** `401 Unauthorized`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/about_item/check_token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/about_item/check_token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"about_item",
+								"check_token"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `/api/v1/login`.\n\nThe body is not required.\n\nThis endpoint must be used to validate the JWT.\n\n- **Success response status:** `200 OK`\n- **Error response status:** `401 Unauthorized`"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication/authorization mechanism for the API",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "No auth",
+					"item": [
+						{
+							"name": "/api/v1/user",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								},
+								"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nNo body is required.\n\nRequest can't have any unsuccessfull response.\n\nThis endpoint must be used to get all the users in the user table.\n\n- **Success response body:** An array of objects\n- **Success response status:** `200 OK`"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/v1/user/id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/user/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"1"
+									]
+								},
+								"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nNo body is required.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThis endpoint must be used to get a specific user from the user table.\n\n- **Success response body:** A user object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `404 Not Found`"
+							},
+							"response": []
+						}
+					],
+					"description": "Endpoints where no authorization/authentication is required",
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "/api/v1/user/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"User name\",\n    \"email\": \"user@email.com\",\n\t\"password\": \"User password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"add"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"name\": string (> 3, < 255),\n    \"email\": string (> 3, < 255),\n    \"password\": string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to add a user to the user table.\n\n- **Success response body:** The created user object\n- **Success response status:** `201 Created`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/user/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"User name\",\n    \"email\": \"user@email.com\",\n    \"password\": \"User password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"update"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"id\": number (> 0),\n    \"name\": string (> 3, < 255),\n    \"email\": string (> 3, < 255),\n    \"password\": string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to update a user that exist in the user table.\n\n- **Success response body:** The updated user object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/user/delete/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"delete",
+								"1"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThe body is not required.\n\nThis endpoint must be used to delete a user that exist in the user table.\n\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD for the user table",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "About item",
+			"item": [
+				{
+					"name": "No auth",
+					"item": [
+						{
+							"name": "/api/v1/about_item",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/about_item",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"about_item"
+									]
+								},
+								"description": "No authorization or body is required.\n\nRequest can't have any unsuccessfull response.\n\nThis endpoint must be used to get all the items in the about_item table.\n\n- **Success response body:** An array of objects\n- **Success response status:** `200 OK`"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/v1/about_item/id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/about_item/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"about_item",
+										"1"
+									]
+								},
+								"description": "No authorization or body is required.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThis endpoint must be used to get an specific item from the about_item table.\n\n- **Success response body:** An item object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `404 Not Found`"
+							},
+							"response": []
+						}
+					],
+					"description": "Endpoints where no authorization/authentication is required",
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "/api/v1/about_item/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"item_type\": 1,\n\t\"name\": \"Item name\",\n\t\"date\": \"2022-12-31\",\n\t\"description\": \"Item description. Can contain html tags for formatting\",\n\t\"link\": \"https://example.com/myCertUrl\",\n\t\"image_uri\": \"https://example.com/myimg.png\",\n\t\"image_alt\": \"Image description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/about_item/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"about_item",
+								"add"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"item_type\": number [1, 2, 3],\n    \"name\": string (> 3, < 255),\n    \"date\": string (yyyy-MM-dd),\n    \"description\": string (> 3, < 3000),\n    \"link\": null | string (> 3, < 255),\n    \"image_uri\": null | string (> 3, < 255),\n    \"image_alt\": null | string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to add an item to the about_item table.\n\n- **Success response body:** The created item object\n- **Success response status:** `201 Created`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/about_item/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n\t\"item_type\": 1,\n\t\"name\": \"Item name\",\n\t\"date\": \"2022-12-31\",\n\t\"description\": \"Item description. Can contain html tags for formatting\",\n\t\"link\": \"https://example.com/myCertUrl\",\n\t\"image_uri\": \"https://example.com/myimg.png\",\n\t\"image_alt\": \"Image description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/about_item/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"about_item",
+								"update"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"id\": number (> 0),\n    \"item_type\": number [1, 2, 3],\n    \"name\": string (> 3, < 255),\n    \"date\": string (yyyy-MM-dd),\n    \"description\": string (> 3, < 3000),\n    \"link\": null | string (> 3, < 255),\n    \"image_uri\": null | string (> 3, < 255),\n    \"image_alt\": null | string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to update an item that exist in the about_item table.\n\n- **Success response body:** The updated item object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/about_item/delete/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/about_item/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"about_item",
+								"delete",
+								"1"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThe body is not required.\n\nThis endpoint must be used to delete an item that exist in the about_item table.\n\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD for the about_item table",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Work item",
+			"item": [
+				{
+					"name": "No auth",
+					"item": [
+						{
+							"name": "/api/v1/work_item",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/work_item",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"work_item"
+									]
+								},
+								"description": "No authorization or body is required.\n\nRequest can't have any unsuccessfull response.\n\nThis endpoint must be used to get all the items in the work_item table.\n\n- **Success response body:** An array of objects\n- **Success response status:** `200 OK`"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/v1/work_item/id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/work_item/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"work_item",
+										"1"
+									]
+								},
+								"description": "No authorization or body is required.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThis endpoint must be used to get an specific item from the work_item table.\n\n- **Success response body:** An item object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `404 Not Found`"
+							},
+							"response": []
+						}
+					],
+					"description": "Endpoints where no authorization/authentication is required",
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "/api/v1/work_item/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Item name\",\n\t\"date\": \"2022-12-31\",\n    \"technologies\": \"Item technologies\",\n\t\"description\": \"Item description\",\n\t\"code_uri\": \"https://github.com/LautaroColella/example/\",\n    \"live_uri\": \"https://example.com\",\n\t\"image_uri\": \"https://example.com/myimg.png\",\n\t\"image_alt\": \"Image description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/work_item/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"work_item",
+								"add"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"name\": string (> 3, < 255),\n    \"date\": string (yyyy-MM-dd),\n    \"technologies\": string (> 3, < 255),\n    \"description\": string (> 3, < 3000),\n    \"code_uri\": null | string (> 3, < 255),\n    \"live_uri\": null | string (> 3, < 255),\n    \"image_uri\": null | string (> 3, < 255),\n    \"image_alt\": null | string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to add an item to the work_item table.\n\n- **Success response body:** The created item object\n- **Success response status:** `201 Created`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/work_item/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n\t\"name\": \"Item name\",\n\t\"date\": \"2022-12-31\",\n    \"technologies\": \"Item technologies\",\n\t\"description\": \"Item description\",\n\t\"code_uri\": \"https://github.com/LautaroColella/example\",\n    \"live_uri\": \"https://example.com\",\n\t\"image_uri\": \"https://example.com/myimg.png\",\n\t\"image_alt\": \"Image description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/work_item/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"work_item",
+								"update"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"id\": number (> 0),\n    \"name\": string (> 3, < 255),\n    \"date\": string (yyyy-MM-dd),\n    \"technologies\": string (> 3, < 255),\n    \"description\": string (> 3, < 3000),\n    \"code_uri\": null | string (> 3, < 255),\n    \"live_uri\": null | string (> 3, < 255),\n    \"image_uri\": null | string (> 3, < 255),\n    \"image_alt\": null | string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to update an item that exist in the work_item table.\n\n- **Success response body:** The updated item object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/work_item/delete/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/work_item/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"work_item",
+								"delete",
+								"1"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThe body is not required.\n\nThis endpoint must be used to delete an item that exist in the work_item table.\n\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD for the work_item table",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Contact item",
+			"item": [
+				{
+					"name": "No auth",
+					"item": [
+						{
+							"name": "/api/v1/contact_item",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/contact_item",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"contact_item"
+									]
+								},
+								"description": "No authorization or body is required.\n\nRequest can't have any unsuccessfull response.\n\nThis endpoint must be used to get all the items in the contact_item table.\n\n- **Success response body:** An array of objects\n- **Success response status:** `200 OK`"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/v1/contact_item/id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/contact_item/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"contact_item",
+										"1"
+									]
+								},
+								"description": "No authorization or body is required.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThis endpoint must be used to get an specific item from the contact_item table.\n\n- **Success response body:** An item object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `404 Not Found`"
+							},
+							"response": []
+						}
+					],
+					"description": "Endpoints where no authorization/authentication is required",
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "/api/v1/contact_item/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Item name\",\n\t\"link\": \"https://example.com/users/LautaroColella\",\n\t\"account\": \"user: Lautaro Colella or ID: 123123\",\n\t\"image_uri\": \"https://example.com/myImage.png\",\n\t\"image_alt\": \"Image description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/contact_item/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"contact_item",
+								"add"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"name\": string (> 3, < 255),\n    \"account\": string (> 3, < 255),\n    \"link\": null | string (> 3, < 255),\n    \"image_uri\": null | string (> 3, < 255),\n    \"image_alt\": null | string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to add an item to the contact_item table.\n\n- **Success response body:** The created item object\n- **Success response status:** `201 Created`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/contact_item/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"Item name\",\n    \"link\": \"https://example.com/users/LautaroColella\",\n    \"account\": \"user: Lautaro Colella or ID: 123123\",\n    \"image_uri\": \"https://example.com/myImage.png\",\n    \"image_alt\": \"Image description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/contact_item/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"contact_item",
+								"update"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"id\": number (> 0),\n    \"name\": string (> 3, < 255),\n    \"account\": string (> 3, < 255),\n    \"link\": null | string (> 3, < 255),\n    \"image_uri\": null | string (> 3, < 255),\n    \"image_alt\": null | string (> 3, < 255)\n}\n\n```\n\nThis endpoint must be used to update an item that exist in the contact_item table.\n\n- **Success response body:** The updated item object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/contact_item/delete/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/contact_item/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"contact_item",
+								"delete",
+								"1"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThe body is not required.\n\nThis endpoint must be used to delete an item that exist in the contact_item table.\n\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD for the contact_item table",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Contact message",
+			"item": [
+				{
+					"name": "No auth",
+					"item": [
+						{
+							"name": "/api/v1/contact_message/add",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"subject\": \"Message subject\",\n\t\"message\": \"Message information\",\n\t\"reply\": \"example@gmail.com\",\n\t\"date\": \"2022-12-31\",\n\t\"read\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/contact_message/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"contact_message",
+										"add"
+									]
+								},
+								"description": "No authorization is required.\n\nBody specifications:\n\n``` json\n{\n    \"subject\": string (> 3, < 255),\n    \"message\": string (> 3, < 3000),\n    \"reply\": string (> 3, < 255),\n    \"date\": string (yyyy-MM-dd),\n    \"read\": boolean [true, false]\n}\n\n```\n\nThis endpoint must be used to add a message to the contact_message table.\n\n- **Success response body:** The created message object\n- **Success response status:** `201 Created`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+							},
+							"response": []
+						}
+					],
+					"description": "Endpoints where no authorization/authentication is required",
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "/api/v1/contact_message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/contact_message",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"contact_message"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nNo body is required.\n\nRequest can't have any unsuccessfull response.\n\nThis endpoint must be used to get all the messages in the contact_message table.\n\n- **Success response body:** An array of objects\n- **Success response status:** `200 OK`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/contact_message/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/contact_message/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"contact_message",
+								"1"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nNo body is required.\n\nThis endpoint must be used to get an specific message from the contact_message table.\n\n- **Success response body:** A message object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `404 Not Found`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/contact_message/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n\t\"subject\": \"Message subject\",\n\t\"message\": \"Message information\",\n\t\"reply\": \"example@gmail.com\",\n\t\"date\": \"2022-12-31\",\n\t\"read\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/contact_message/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"contact_message",
+								"update"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"id\": number (> 0),\n    \"subject\": string (> 3, < 255),\n    \"message\": string (> 3, < 3000),\n    \"reply\": string (> 3, < 255),\n    \"date\": string (yyyy-MM-dd),\n    \"read\": boolean [true, false]\n}\n\n```\n\nThis endpoint must be used to update a message that exist in the contact_message table.\n\n- **Success response body:** The updated message object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/contact_message/delete/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/contact_message/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"contact_message",
+								"delete",
+								"1"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThe body is not required.\n\nThis endpoint must be used to delete a message that exist in the contact_message table.\n\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD for the contact_message table",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Information",
+			"item": [
+				{
+					"name": "No auth",
+					"item": [
+						{
+							"name": "/api/v1/information",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/information",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"information"
+									]
+								},
+								"description": "No authorization or body is required.\n\nRequest can't have any unsuccessfull response.\n\nThis endpoint must be used to get all the information items in the information table.\n\n- **Success response body:** An array of objects\n- **Success response status:** `200 OK`"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/v1/information/id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/information/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"information",
+										"1"
+									]
+								},
+								"description": "No authorization or body is required.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThis endpoint must be used to get an information item from the information table.\n\n- **Success response body:** An information object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `404 Not Found`"
+							},
+							"response": []
+						}
+					],
+					"description": "Endpoints where no authorization/authentication is required",
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "/api/v1/information/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Information name\",\n\t\"information\": \"Information description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/information/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"information",
+								"add"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"name\": string (> 3, < 255),\n    \"information\": string (> 3, < 2000)\n}\n\n```\n\nThis endpoint must be used to add an information item to the information table.\n\n- **Success response body:** The created information object\n- **Success response status:** `201 Created`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/information/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n\t\"name\": \"Information name\",\n\t\"information\": \"Information description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/information/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"information",
+								"update"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nBody specifications:\n\n``` json\n{\n    \"id\": number (> 0),\n    \"name\": string (> 3, < 255),\n    \"information\": string (> 3, < 2000),\n}\n\n```\n\nThis endpoint must be used to update an information item that exist in the information table.\n\n- **Success response body:** The updated information object\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/information/delete/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/information/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"information",
+								"delete",
+								"1"
+							]
+						},
+						"description": "The authorization must be of type `Bearer`.\n\nThe authorization must contain the given bearer token when authenticating to `http://localhost:8080/api/v1/login`.\n\nThe id parameter in the URL must be a positive number. A negative number or NaN returns an error response status of `401 Unauthorized`.\n\nThe body is not required.\n\nThis endpoint must be used to delete an information item that exist in the information table.\n\n- **Success response status:** `200 OK`\n- **Error response body:** An error object\n- **Error response status:** `400 Bad Request`"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD for the information table",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAZ21haWwuY29tIiwiZXhwIjoxNjgyOTQ4MDA2LCJuYW1lIjoiYWRtaW4ifQ.EnwhtAs4vDY73X9rWXA0ga4JmXplbNwFsl5lww2JaSaA7Y_MGx5BBnFYtlp1EPAYU58zwS20QAPO5yxsk0a1Rw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
